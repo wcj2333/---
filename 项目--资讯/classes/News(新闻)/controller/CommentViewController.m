@@ -51,6 +51,20 @@
     //监听
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(sendActionSuccess) name:@"评论发送完成" object:nil];
     
+    //发送按钮样式
+    self.sendBtn.layer.cornerRadius = 5;
+    self.sendBtn.layer.borderWidth = 1;
+    self.sendBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.sendBtn.layer.masksToBounds = YES;
+
+    
+    //文本框样式
+    self.commentTV.layer.cornerRadius = 5;
+    self.commentTV.layer.borderColor = [UIColor grayColor].CGColor;
+    self.commentTV.layer.borderWidth = 1;
+    self.commentTV.layer.masksToBounds = YES;
+    self.commentTV.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -114,6 +128,8 @@
     if (self.bgView == nil) {
         self.bgView = [[UIView alloc]initWithFrame:self.tableView.bounds];
         self.bgView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(endEditing)];
+        [self.bgView addGestureRecognizer:tap];
     }
     
     CGRect keyboardFrame = [noti.userInfo[@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
@@ -266,5 +282,10 @@
     
     [editor dismissViewControllerAnimated:YES completion:nil];
 }
+
+-(void)endEditing{
+    [self.view endEditing:YES];
+}
+
 
 @end

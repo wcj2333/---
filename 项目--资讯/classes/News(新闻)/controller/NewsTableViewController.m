@@ -254,6 +254,7 @@
         vc.ad_url = news.skipID;
         vc.news = news;
         vc.type = @"photoset";
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }else if(!news.videoID){//没有视频播放信息 那么该视频是有文本内容的
         NormalNewsViewController *vc = [NormalNewsViewController new];
@@ -277,6 +278,7 @@
             NSString *urlString = obj;
             vc.player = [AVPlayer playerWithURL:[NSURL URLWithString:urlString]];
             [vc.player play];
+            vc.hidesBottomBarWhenPushed = YES;
             [self presentViewController:vc animated:YES completion:nil];
         }];
     }
