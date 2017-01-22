@@ -1,0 +1,32 @@
+//
+//  PrefixHeader.pch
+//  项目--资讯
+//
+//  Created by tarena on 16/8/28.
+//  Copyright © 2016年 tarena. All rights reserved.
+//
+
+#import <BmobSDK/Bmob.h>
+#import "UIImageView+WebCache.h"
+#import "MBProgressHUD.h"
+#import <DKNightVersion/DKNightVersion.h>
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#define MAS_SHORTHAND_GLOBALS
+#import "Masonry.h"
+
+#import "BaseNewsUtils.h"
+
+//主屏幕宽
+#define MainScreenW [UIScreen mainScreen].bounds.size.width
+#define MainScreenH [UIScreen mainScreen].bounds.size.height
+//间隔
+#define Margin 8
+#define kThemeColor [BaseNewsUtils colorRGB:@"#e60012"]
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* PrefixHeader_pch */
