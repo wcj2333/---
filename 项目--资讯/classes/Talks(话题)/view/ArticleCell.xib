@@ -23,7 +23,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="2zh-CF-F7Z"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -55,13 +55,25 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OoI-s9-VKZ">
                         <rect key="frame" x="8" y="111" width="359" height="110"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iphone限免" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zq6-Ca-KXT">
+                        <rect key="frame" x="292" y="33" width="75" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="lu8-Hg-KPN"/>
+                            <constraint firstAttribute="width" constant="75" id="wgr-ja-dSS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.86274509803921573" green="0.86274509803921573" blue="0.86274509803921573" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="TEL-51-eLx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="42W-J4-bWw"/>
                     <constraint firstAttribute="trailing" secondItem="sRx-4V-LGD" secondAttribute="trailing" constant="8" id="5pg-dt-9wj"/>
                     <constraint firstAttribute="trailing" secondItem="OoI-s9-VKZ" secondAttribute="trailing" constant="8" id="6Oq-xK-7kU"/>
                     <constraint firstItem="wvI-6b-6Md" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="9O3-4K-M27"/>
+                    <constraint firstItem="Zq6-Ca-KXT" firstAttribute="top" secondItem="rBF-5s-3Ls" secondAttribute="bottom" constant="2" id="BvH-JF-7Ph"/>
                     <constraint firstItem="wvI-6b-6Md" firstAttribute="top" secondItem="sRx-4V-LGD" secondAttribute="bottom" constant="15" id="GZ6-cN-cL8"/>
+                    <constraint firstAttribute="trailing" secondItem="Zq6-Ca-KXT" secondAttribute="trailing" constant="8" id="JXg-Yn-Ht1"/>
                     <constraint firstItem="OoI-s9-VKZ" firstAttribute="top" secondItem="wvI-6b-6Md" secondAttribute="bottom" constant="8" id="Ua4-md-Lor"/>
                     <constraint firstAttribute="bottom" secondItem="OoI-s9-VKZ" secondAttribute="bottom" constant="4" id="XAS-Nz-d5X"/>
                     <constraint firstItem="OoI-s9-VKZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Y9D-aM-U7o"/>
@@ -76,6 +88,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="albumIV" destination="OoI-s9-VKZ" id="Nwa-sp-N0w"/>
+                <outlet property="categoryLabel" destination="Zq6-Ca-KXT" id="idv-39-9kI"/>
                 <outlet property="headIV" destination="TEL-51-eLx" id="aEJ-jr-Vwe"/>
                 <outlet property="nickLB" destination="rBF-5s-3Ls" id="oyV-yD-VEF"/>
                 <outlet property="timeLB" destination="sRx-4V-LGD" id="dNt-J7-wkw"/>

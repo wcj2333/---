@@ -11,10 +11,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommentViewController">
             <connections>
+                <outlet property="bottomView" destination="Scq-XT-5NO" id="e0M-el-Grq"/>
                 <outlet property="commentTV" destination="Yzp-lk-KcN" id="uYF-JK-3IM"/>
                 <outlet property="commentView" destination="lOA-EC-Mzo" id="vqA-t3-Vq6"/>
                 <outlet property="commentViewTop" destination="0VX-yr-C3h" id="NiF-8i-q3e"/>
                 <outlet property="localLB" destination="RTQ-CH-o0f" id="Mfj-gE-V3Z"/>
+                <outlet property="positionButton" destination="0kt-uy-ngV" id="qeK-gW-DA9"/>
                 <outlet property="sendBtn" destination="vSH-h0-aQF" id="Kxd-oB-XMO"/>
                 <outlet property="tableView" destination="wPX-NW-G17" id="7Dx-Zf-pxv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

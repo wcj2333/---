@@ -14,13 +14,13 @@
 -(void)awakeFromNib{
     [super awakeFromNib];
     
+    self.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentNews:)];
     [self addGestureRecognizer:tap];
     
 }
 
--(void)setModel:(NormalNewsParse *)model{//self.fontStyle,parse.title,self.fontStyle,parse.source,parse.ptime,self.fontStyle,DKColorPickerWithKey(TEXT),parse.body
-    _model = model;
+-(void)setModel:(NormalNewsParse *)model{//    _model = model;
     [self.imageIV sd_setImageWithURL:[NSURL URLWithString:self.albumPath]];
     self.titleLB.text = model.title;
     self.titleLB.font = [UIFont systemFontOfSize:13];
@@ -34,12 +34,6 @@
     }
 
 }
-//-(float)cellH{
-//    float imageH = self.imageIV.bounds.size.height+16;
-//    float lbH = self.titleLB.bounds.size.height+self.sourceLB.bounds.size.height+24;
-//    _cellH = imageH>lbH?imageH:lbH;
-//    return _cellH;
-//}
 -(void)setPhotosets:(NSArray *)photosets{
     _photosets = photosets;
     [self.imageIV sd_setImageWithURL:[NSURL URLWithString:photosets[1]]];
@@ -70,7 +64,12 @@
 }
 
 -(void)commentNews:(UITapGestureRecognizer *)gesture{
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"评论新闻详情" object:self.source];
+    if (self.model) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"评论新闻详情" object:@[self.titleLB.text,self.sourceLB.text,self.albumPath,self.source,@""]];
+    }else{
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"评论新闻详情" object:@[self.titleLB.text,self.sourceLB.text,self.photosets[1],self.source,@""]];
+    }
+    
 }
 
 @end

@@ -14,6 +14,7 @@
 #import "NormalNewsParse.h"
 #import "NewsUtils.h"
 #import "NormalNewsViewController.h"
+#import "HeadLineNews.h"
 
 @interface MyCommentViewController ()
 
@@ -32,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
     self.commentNews = [NSMutableArray array];
     self.commentCounts = [NSMutableArray array];
     
@@ -102,8 +104,16 @@
 
 -(void)seeNewsDetail:(NSNotification *)noti{
     NormalNewsViewController *vc = [NormalNewsViewController new];
-    vc.ad_url = noti.object;
-    NSString *str = noti.object;
+    NSArray *arr = noti.object;
+    vc.ad_url = arr[3];
+    HeadLineNews *news = [[HeadLineNews alloc]init];
+    news.title = arr[0];
+    news.source = arr[1];
+    news.imgsrc = arr[2];
+    news.docid = arr[3];
+    news.TAG = arr.lastObject;
+    vc.news = news;
+    NSString *str = arr[3];
     if ([str containsString:@"|"]) {
         vc.type = @"photoset";
     }

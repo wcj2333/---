@@ -16,6 +16,7 @@
         self.dataSource = self;
         self.delegate = self;
         
+        self.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
         self.tableFooterView = [[UIView alloc]init];
         
         [self registerNib:[UINib nibWithNibName:@"MyCommentCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"CommentCell"];

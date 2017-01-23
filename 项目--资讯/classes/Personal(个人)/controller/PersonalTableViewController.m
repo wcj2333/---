@@ -162,8 +162,10 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserCell"];
             if (indexPath.row == 1) {
                 cell.textLabel.text = [NSString stringWithFormat:@"当前累计时间为：%d:%.2d:%.2d",(int)self.currentTime/1000/3600,(int)self.currentTime/1000/60,(int)self.currentTime/1000%60];
+                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             }else{
                 cell.textLabel.text = self.contentArr[indexPath.row-1];
+                [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
             }
             cell.imageView.image = [UIImage imageNamed:self.contentArr[indexPath.row-1]];
             cell.textLabel.font = [UIFont systemFontOfSize:16];

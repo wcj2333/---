@@ -61,7 +61,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //点击查看详情
-    HeadLineNews *news = self.newsArr[indexPath.row];
+    HeadLineNews *news = self.newsArr[self.newsArr.count-1-indexPath.row];
     if ([news.TAG isEqualToString:@"photoset"]) {//存在
         NormalNewsViewController *vc = [NormalNewsViewController new];
         vc.ad_url = news.docid;

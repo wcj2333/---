@@ -70,9 +70,10 @@
                             [bObj updateInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
                                 if (isSuccessful) {//更新成功
                                     NSLog(@"保存成功");
-                                    [BmobUtils showErrReason:@"发送成功"];
+                                    [BaseNewsUtils toastview:@"发送成功"];
                                     [[NSNotificationCenter defaultCenter]postNotificationName:@"评论发送完成" object:nil];
                                 }else{
+                                    [BaseNewsUtils toastview:@"发送失败"];
                                     NSLog(@"保存失败");
                                 }
                             }];
@@ -81,12 +82,13 @@
                 }
                 
             }else{
-                [BmobUtils showErrReason:@"发送成功"];
+                [BaseNewsUtils toastview:@"发送成功"];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"评论发送完成" object:nil];
 
             }
             
         }else{
+            [BaseNewsUtils toastview:@"发送失败"];
             NSLog(@"评论:err:%@",error);
         }
     }];
@@ -265,8 +267,27 @@
     BmobQuery *queue = [BmobQuery queryWithClassName:@"Article"];
     //根据时间来
     [queue includeKey:@"user"];
-    queue.limit = 10;
+    //queue.limit = 10;
     [queue orderByDescending:@"createdAt"];
+    if (isInclude == YES) {//查看当前用户发表的文章
+        [queue whereKey:@"user" equalTo:[BmobUser currentUser]];
+    }
+    [queue findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+        NSArray *comments = array;
+        callBack(comments);
+    }];
+
+}
+
++(void)seachAllArticlesWithCategory:(NSString *)category andCurrentUser:(BOOL)isInclude andCallBack:(myBlock)callBack{
+    BmobQuery *queue = [BmobQuery queryWithClassName:@"Article"];
+    //根据时间来
+    [queue includeKey:@"user"];
+    //queue.limit = 10;
+    [queue orderByDescending:@"createdAt"];
+    if (![category isEqualToString:@"全部"]) {
+        [queue whereKey:@"category" equalTo:category];
+    }
     if (isInclude == YES) {//查看当前用户发表的文章
         [queue whereKey:@"user" equalTo:[BmobUser currentUser]];
     }

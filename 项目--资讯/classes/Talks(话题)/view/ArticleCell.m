@@ -11,12 +11,13 @@
 @implementation ArticleCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.albumIV.layer.masksToBounds = YES;
     self.albumIV.layer.cornerRadius = 5;
     self.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
     self.titleLB.dk_textColorPicker = DKColorPickerWithKey(TEXT);
     self.nickLB.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    self.timeLB.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    //self.timeLB.dk_textColorPicker = DKColorPickerWithKey(TEXT);
 }
 
 -(void)setBobj:(BmobObject *)bobj{
@@ -37,6 +38,7 @@
     }
     [self.headIV sd_setImageWithURL:[NSURL URLWithString:[user objectForKey:@"headPath"]] placeholderImage:[UIImage imageNamed:@"头像"]];
     self.timeLB.text = [self createTime:bobj.createdAt];
+    self.categoryLabel.text = [bobj objectForKey:@"category"];
     
 }
 

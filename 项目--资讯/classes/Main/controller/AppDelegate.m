@@ -357,7 +357,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     //记住当前的毫秒数
-    [self.personVC.timer invalidate];
+//    [self.personVC.timer invalidate];
 //    MainNavigationController *navi = (MainNavigationController *)self.tabBar.viewControllers.lastObject;
 //    PersonalTableViewController *vc = (PersonalTableViewController *)navi.viewControllers[0];
     [[NSUserDefaults standardUserDefaults]setObject:@(self.personVC.currentTime) forKey:@"addUpTime"];

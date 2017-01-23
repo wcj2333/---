@@ -19,10 +19,10 @@
 #import "VideoPlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AVKit/AVKit.h>
-#import "CLRefresh.h"
-#import "TNRefreshFooterView.h"
-#import "TNRefreshHeaderView.h"
-#import "UIScrollView+LDRefresh.h"
+#import "UIViewController+Example.h"
+#import "UIScrollView+MJRefresh.h"
+#import "MJRefreshNormalHeader.h"
+#import "MJRefreshAutoNormalFooter.h"
 
 @interface NewsTableViewController ()
 
@@ -34,8 +34,6 @@
 @property (nonatomic) HeadScrollView *scrollView;
 @property (nonatomic) NSString *fontStyle;
 @property (nonatomic) NSDictionary *newsItemDic;
-@property (nonatomic) RefreshHeaderView *headerView;
-@property (nonatomic) RefreshFooterView *footerView;
 @property (nonatomic) NSInteger recommentIndex;
 
 @end
@@ -53,12 +51,11 @@
     self.scrollView.delegate = self;
     
     if ([self.type isEqualToString:@"推荐"]) {
-        
-        self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 44, 0);
     }else{
-        self.tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(44, 0, 44, 0);
     }
-    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     //注册
     [self.tableView registerNib:[UINib nibWithNibName:@"NormalCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"NormalCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ImagesCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"ImagesCell"];
@@ -66,9 +63,8 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeFontSystem:) name:@"改变字体" object:nil];
     
     [self addRefreshView];
-    //[self loadUpdateNews];
-    //[self.tableView.refreshHeader startRefresh];
-    [self.headerView startRefresh];
+
+
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -89,19 +85,21 @@
     
     __weak __typeof (self)weakself = self;
     
-    //下拉刷新
-    self.headerView = [self.tableView addHeaderWithRefreshHandler:^(RefreshBaseView *refreshView) {
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [weakself loadUpdateNews];
     }];
     
-//    self.tableView.refreshFooter = [self.tableView addRefreshFooterWithHandler:^ {
-//        [weakself loadMoreNews];
-//    }];
-
-    self.footerView = [self.tableView addFooterWithRefreshHandler:^(RefreshBaseView *refreshView) {
+    // 马上进入刷新状态
+    [self.tableView.mj_header beginRefreshing];
+    
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [weakself loadMoreNews];
-        
     }];
+    // 马上进入刷新状态
+    //[self.tableView.mj_header beginRefreshing];
+
+
+    
 }
 -(void)changeFontSystem:(NSNotification *)noti{
     self.fontStyle = noti.object[@"font"];
@@ -128,7 +126,8 @@
                 }
             }
             [self.tableView reloadData];
-            [self.headerView endRefresh];
+            //[self.headerView endRefresh];
+            [self.tableView.mj_header endRefreshing];
             self.recommentIndex = 0;
 
         }];
@@ -158,7 +157,8 @@
             }
             [self.tableView reloadData];
            // [hud hideAnimated:YES];
-            [self.headerView endRefresh];
+            //[self.headerView endRefresh];
+            [self.tableView.mj_header endRefreshing];
             self.index = 0;
         }];
     }
@@ -173,9 +173,7 @@
         [NewsUtils getHeadNewsWithItem:newsItem WithIndex:self.index andCompletion:^(id obj) {
             [self.headNews addObjectsFromArray:obj];
             [self.tableView reloadData];
-//            [self.tableView.refreshFooter endRefresh];
-//            self.tableView.refreshFooter.loadMoreEnabled = NO;
-            [self.footerView endRefresh];
+            [self.tableView.mj_footer endRefreshing];
         }];
 
     }else{
@@ -194,9 +192,7 @@
                 }
             }
                 [self.tableView reloadData];
-//                [self.tableView.refreshFooter endRefresh];
-//                self.tableView.refreshFooter.loadMoreEnabled = NO;
-                [self.footerView endRefresh];
+                [self.tableView.mj_footer endRefreshing];
             }];
 //        }
     }

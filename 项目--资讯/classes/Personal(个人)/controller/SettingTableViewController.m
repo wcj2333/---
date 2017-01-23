@@ -8,6 +8,9 @@
 
 #import "SettingTableViewController.h"
 #import "ChangePwdViewController.h"
+#import "SetUserInfoTableViewController.h"
+#import "AboutSystemViewController.h"
+#import "AboutSystemViewController.h"
 
 @interface SettingTableViewController ()
 
@@ -59,7 +62,7 @@
     cell.textLabel.text = arr[indexPath.row];
     cell.dk_backgroundColorPicker = DKColorPickerWithRGB(0xffffff, 0x343434, 0xfafafa);
     cell.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    if (indexPath.section == 1&&indexPath.row == 1) {
+    if (indexPath.section == 1&&indexPath.row == 0) {
         //清理缓存处 添加详细的缓存信息
         [[SDImageCache sharedImageCache] calculateSizeWithCompletionBlock:^(NSUInteger fileCount, NSUInteger totalSize) {
             NSString *message = [NSString stringWithFormat:@"%.2fM",totalSize/1024.0/1024];
@@ -70,24 +73,33 @@
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0&&indexPath.row==0) {
-        //账号与密码设置
-        //弹出框
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"账号与密码" preferredStyle:UIAlertControllerStyleActionSheet];
-            UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"修改密码" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //修改密码
-            [self dismissViewControllerAnimated:YES completion:nil];
-            ChangePwdViewController *vc = [ChangePwdViewController new];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {//个人信息
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"userInfo" bundle:[NSBundle mainBundle]];
+            SetUserInfoTableViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"SetUserInfoTableViewController"];
+            vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
-        }];
-        UIAlertAction *a2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        [alert addAction:a1];
-        [alert addAction:a2];
-        [self presentViewController:alert animated:YES completion:nil];
+        }
+        if (indexPath.row == 1) {
+            //账号与密码设置
+            //弹出框
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"账号与密码" preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction *a1 = [UIAlertAction actionWithTitle:@"修改密码" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //修改密码
+                [self dismissViewControllerAnimated:YES completion:nil];
+                ChangePwdViewController *vc = [ChangePwdViewController new];
+                [self.navigationController pushViewController:vc animated:YES];
+            }];
+            UIAlertAction *a2 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:a1];
+            [alert addAction:a2];
+            [self presentViewController:alert animated:YES completion:nil];
+
+        }
     }
     
-    if (indexPath.section == 1&& indexPath.row == 1) {
-        {
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
             [[SDImageCache sharedImageCache] calculateSizeWithCompletionBlock:^(NSUInteger fileCount, NSUInteger totalSize) {
                 NSString *message = [NSString stringWithFormat:@"您确认清除%.2fM缓存吗？",totalSize/1024.0/1024];
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
@@ -105,11 +117,15 @@
                 
                 [self presentViewController:alert animated:YES completion:nil];
             }];
+
+        }else{
+            AboutSystemViewController *vc = [[AboutSystemViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
     
     //修改字体
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"改变字体" object:@{@"font":@"stkaiti"}];
+    //[[NSNotificationCenter defaultCenter]postNotificationName:@"改变字体" object:@{@"font":@"stkaiti"}];
 }
 
 
@@ -129,8 +145,8 @@
 #pragma mark - 懒加载 Lazy Load
 - (NSArray *)dataArr {
 	if(_dataArr == nil) {
-        NSArray *d1 = @[@"账号与密码",@"切换账号"];
-        NSArray *d2 = @[@"正文字号",@"清理缓存",@"更新版本"];
+        NSArray *d1 = @[@"个人信息",@"账号与密码",@"切换账号"];
+        NSArray *d2 = @[@"清理缓存",@"关于"];
         
 		_dataArr = @[d1,d2];
 	}

@@ -24,6 +24,9 @@ typedef void(^myBlock) (id obj);
 +(void)searchAllArticlesWithCurrentUser:(BOOL)isInclude andCallBack:(myBlock)callBack;
 //解析上传上去的文章
 +(void)parseArticleWithText:(NSString *)text andmutImgArray:(NSMutableArray *)mutImgArray  andimageSize:(CGSize)imageSize andCallBack:(myBlock)callBack;
+//根据分类查找文章
++(void)seachAllArticlesWithCategory:(NSString *)category andCurrentUser:(BOOL)isInclude andCallBack:(myBlock)callBack;
+
 
 +(void)showErrReason:(NSString *)text;
 

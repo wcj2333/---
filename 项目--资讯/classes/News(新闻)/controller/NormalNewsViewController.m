@@ -29,6 +29,8 @@
 
 @interface NormalNewsViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLImageEditorDelegate, CLImageEditorTransitionDelegate, CLImageEditorThemeDelegate,UIWebViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *positionButton;
+
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic) NormalNewsParse *parse;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -70,6 +72,8 @@
     self.webView.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
     self.userHeadView.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
     self.nameLB.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    [self.sendBtn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    [self.positionButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     
     self.webView.delegate = self;
     self.normalCommentViewTop = self.bottomViewTop.constant;
@@ -289,6 +293,7 @@
 - (IBAction)clickCommentBtn:(id)sender {
     //查看评论
     CommentViewController *vc = [CommentViewController new];
+    vc.headNews = self.news;
     vc.source = self.ad_url;
     [self.navigationController pushViewController:vc animated:YES];
 }

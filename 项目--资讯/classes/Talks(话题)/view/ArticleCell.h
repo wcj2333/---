@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headIV;
 @property (weak, nonatomic) IBOutlet UILabel *nickLB;
 @property (weak, nonatomic) IBOutlet UILabel *timeLB;
+@property (weak, nonatomic) IBOutlet UILabel *categoryLabel;
 
 
 @property (nonatomic) BmobObject *bobj;

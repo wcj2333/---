@@ -14,6 +14,7 @@
 - (void)awakeFromNib {
 
     [super awakeFromNib];
+    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     //在两者间添加竖的分割线
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(MainScreenW/2, 8, 1, 28)];
     [self addSubview:view];

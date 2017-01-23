@@ -16,6 +16,9 @@
 @property (weak, nonatomic) IBOutlet UIView *chooseView;
 @property (nonatomic) UIButton *addButton;
 @property (nonatomic) NSMutableArray *chooseImages;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *titleLabels;
+@property (weak, nonatomic) IBOutlet UIButton *chooseButton;
+
 
 @end
 
@@ -23,6 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     
     self.chooseImages = [NSMutableArray array];
     self.consultTextView.layer.borderColor = [UIColor blackColor].CGColor;
@@ -44,6 +49,14 @@
         make.width.equalTo(chooseImageViewW);
     }];
     [self.chooseImages insertObject:self.addButton atIndex:0];
+    
+    for (UILabel *label in self.titleLabels) {
+        label.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    }
+    [self.chooseButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    self.consultTextView. dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    self.phoneTextField. dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    self.nameTextField. dk_textColorPicker = DKColorPickerWithKey(TEXT);
     
 }
 

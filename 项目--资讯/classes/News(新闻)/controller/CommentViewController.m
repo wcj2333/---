@@ -17,7 +17,8 @@
 @interface CommentViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITableViewDataSource,UITableViewDelegate,CLImageEditorDelegate, CLImageEditorTransitionDelegate, CLImageEditorThemeDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+@property (weak, nonatomic) IBOutlet UIButton *positionButton;
 @property (nonatomic) UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIView *commentView;
 @property (weak, nonatomic) IBOutlet UIButton *sendBtn;
@@ -64,6 +65,14 @@
     self.commentTV.layer.borderWidth = 1;
     self.commentTV.layer.masksToBounds = YES;
     self.commentTV.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    
+    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
+    self.tableView.tableFooterView = [[UIView alloc]init];
+    self.commentView.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
+    self.bottomView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.commentTV.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
+    [self.sendBtn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    [self.positionButton dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
     
 }
 -(void)viewWillAppear:(BOOL)animated{

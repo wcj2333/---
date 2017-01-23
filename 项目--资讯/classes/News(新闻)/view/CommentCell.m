@@ -16,6 +16,10 @@
     if (!self.textLB) {
         self.textLB = [[UILabel alloc]initWithFrame:CGRectMake(Margin, CGRectGetMaxY(self.headIV.frame)+8, MainScreenW-2*Margin, 0)];
         //self.textLB.backgroundColor = [UIColor redColor];
+        self.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
+        self.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+        self.textLB.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+
         [self addSubview:self.textLB];
     }
     if (!self.commentIV) {
